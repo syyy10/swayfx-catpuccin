@@ -1,0 +1,76 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+
+  "modules-left": [
+    "sway/workspaces"
+  ],
+
+  "modules-center": [
+    "clock"
+  ],
+
+  "modules-right": [
+    "cpu",
+    "memory",
+    "battery",
+    "network",
+    "pulseaudio",
+    "backlight",
+    "custom/power"
+  ],
+
+  "sway/workspaces": {
+    "format": "{name}"
+  },
+
+  "clock": {
+    "format": "{:%a %b %d  %I:%M %p}",
+    "timezone": "America/Los_Angeles",
+    "tooltip-format": "<big>{:%Y-%m-%d}</big>"
+  },
+
+  "cpu": {
+    "interval": 2,
+    "format": "CPU {usage}%"
+  },
+
+  "memory": {
+    "interval": 5,
+    "format": "RAM {percentage}%"
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "BAT {capacity}%"
+  },
+
+  "network": {
+    "format-wifi": " {essid}",
+    "format-ethernet": " Wired",
+    "format-disconnected": "Disconnected",
+    "tooltip-format": "{ifname}: {ipaddr}"
+  },
+
+  "pulseaudio": {
+    "format": " {volume}%",
+    "format-muted": " muted",
+    "on-click": "pavucontrol"
+  },
+
+  "backlight": {
+    "format": "☀ {percent}%",
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
+
+  "custom/power": {
+    "format": "⏻",
+    "on-click": "~/.config/sway/scripts/powermenu",
+    "tooltip": false
+  }
+}

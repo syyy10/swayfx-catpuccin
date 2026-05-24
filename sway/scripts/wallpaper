@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# wallpaper-picker.sh — pick a wallpaper from ~/.config/sway/wallpapers using wofi + awwww
+
+WALLPAPER_DIR="$HOME/.config/sway/wallpapers"
+WOFI_CONF="$HOME/.config/wofi/config"
+WOFI_STYLE="$HOME/.config/wofi/style.css"
+
+# Supported image extensions
+SUPPORTED="jpg|jpeg|png|gif|webp|bmp"
+
+# Sanity checks
+if [[ ! -d "$WALLPAPER_DIR" ]]; then
+  notify-send "Wallpaper Picker" "Directory not found: $WALLPAPER_DIR" --urgency=critical
+  exit 1
+fi
+
+if ! command -v awww &>/dev/null; then
+  notify-send "Wallpaper Picker" "awwww is not installed or not in PATH" --urgency=critical
+  exit 1
+fi
+
+# Make sure awwww daemon is running
+if ! awww query &>/dev/null; then
+  awww init
+  sleep 0.5
+fi
+
+# Build list of wallpapers (basename for display, full path for setting)
+declare -A wall_map
+
+while IFS= read -r -d '' file; do
+  name=$(basename "$file")
+  wall_map["$name"]="$file"
+done < <(find "$WALLPAPER_DIR" -maxdepth 2 -regextype posix-extended \
+           -iregex ".*\.($SUPPORTED)" -print0 | sort -z)
+
+if [[ ${#wall_map[@]} -eq 0 ]]; then
+  notify-send "Wallpaper Picker" "No images found in $WALLPAPER_DIR"
+  exit 0
+fi
+
+# Present names to wofi
+chosen=$(printf '%s\n' "${!wall_map[@]}" | sort | wofi \
+  --conf "$WOFI_CONF" \
+  --style "$WOFI_STYLE" \
+  --dmenu \
+  --prompt "Wallpaper" \
+  --cache-file /dev/null)
+
+[[ -z "$chosen" ]] && exit 0
+
+full_path="${wall_map[$chosen]}"
+
+# Set wallpaper with a smooth transition
+awww img "$full_path"
+notify-send "Wallpaper" "Set to: $chosen" --icon="$full_path"

@@ -1,0 +1,82 @@
+/* Catppuccin Mocha */
+* {
+  font-family: "JetBrains Mono", "Monospace", monospace;
+  font-size: 14px;
+}
+
+window {
+  margin: 0px;
+  border: 2px solid #cba6f7; /* Mauve */
+  border-radius: 12px;
+  background-color: #1e1e2e; /* Base */
+}
+
+#input {
+  margin: 8px;
+  border: 2px solid #313244; /* Surface0 */
+  border-radius: 8px;
+  color: #cdd6f4; /* Text */
+  background-color: #181825; /* Mantle */
+  padding: 6px 12px;
+  outline: none;
+}
+
+#input:focus {
+  border-color: #cba6f7; /* Mauve */
+}
+
+#input image {
+  color: #6c7086; /* Overlay0 */
+  margin-right: 6px;
+}
+
+#inner-box {
+  margin: 0px 8px 8px 8px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1e1e2e; /* Base */
+  color: #cdd6f4; /* Text */
+}
+
+#outer-box {
+  margin: 0px;
+  border: none;
+  border-radius: 12px;
+  background-color: #1e1e2e; /* Base */
+}
+
+#scroll {
+  margin: 0px;
+  border: none;
+}
+
+#text {
+  margin: 0px 8px;
+  border: none;
+  color: #cdd6f4; /* Text */
+}
+
+#entry {
+  margin: 2px 0px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+}
+
+#entry arrow {
+  border: none;
+  color: #cba6f7; /* Mauve */
+}
+
+#entry:selected {
+  background-color: #313244; /* Surface0 */
+  border-radius: 8px;
+}
+
+#entry:selected #text {
+  color: #cba6f7; /* Mauve */
+}
+
+#entry image {
+  margin-right: 4px;
+}
